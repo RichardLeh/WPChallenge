@@ -15,11 +15,9 @@ class SearchViewController: UIViewController {
         self.navigationItem.title = "WP Challenge"
         
         let nav = self.navigationController?.navigationBar
-        
         nav?.tintColor = UIColor.white
         nav?.barTintColor = UIColor.init(hexString: Colors.defaultColor.rawValue)
         nav?.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
-        
     }
 
     override func didReceiveMemoryWarning() {

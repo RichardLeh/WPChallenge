@@ -8,6 +8,9 @@
 
 import Foundation
 
+// https://staging-worldpackersplatform.herokuapp.com/api/search/?q=BR&page=1
+// https://staging-worldpackersplatform.herokuapp.com/api/search?page=2&per_page=20&q=
+
 class Requests: NSObject{
     
     var session = URLSession.shared
@@ -22,8 +25,9 @@ class Requests: NSObject{
     override init() {
         super.init()
     }
-    
-    func requestApi(withQuery query:String, and page:Int = 1, completion: @escaping (_ result: Any?, _ error: NSError?) -> Void){
+        
+    func requestApi(withQuery query:String, withPage page:Int = 1, completion: @escaping (_ result: Any?, _ error: NSError?) -> Void){
+        
         let requestParameters = [Server.worldpackersApiKeys.query: query,
                                  Server.worldpackersApiKeys.page: page] as [String:Any]
         

@@ -21,24 +21,29 @@ class ViewController: UIViewController {
     var hosts = [Host]()
     var query:String = ""
     
+    var nextPage:String?
+    var page:Int = 1
+    
     var firstTime:Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = query
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = query
         getHost()
     }
+    
+    /*
+    override func viewWillAppear(_ animated: Bool) {
+        //self.navigationItem.title = query
+        
+    }
+    */
     
     func getHost(){
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        Requests().requestApi(withQuery: query){ [weak self] (result, error) in
+        Requests().requestApi(withQuery: query, withPage: page){ [weak self] (result, error) in
         
             if let weakSelf = self {
                 weakSelf.firstTime = false
@@ -46,11 +51,14 @@ class ViewController: UIViewController {
                 if let result = result as? Dictionary<String,Any>{
                     
                     if let hostsArr = result["hits"] as? [Dictionary<String, Any>]{
-                        weakSelf.hosts = weakSelf.getHosts(fromArray: hostsArr)
+                        weakSelf.hosts.append(contentsOf: weakSelf.getHosts(fromArray: hostsArr))
                     }
-                    /*for hostDic in result{
-                     print(hostDic)
-                     }*/
+                    
+                    if let nextPage = result["next_page_url"] as? String{
+                        weakSelf.nextPage = nextPage
+                    }else{
+                        weakSelf.nextPage = nil
+                    }
                     
                     updatesOnMain {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -135,6 +143,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             if let rating = host.rating {
                 cell.ratingLabel.text = String(repeating: "★", count: rating) + String(repeating: "☆", count: AppConstants.ratingMax.rawValue - rating)
             }
+            
+            
+            if hosts.count - 1 == indexPath.row && nextPage?.isEmpty == false {
+                print("Load more hosts")
+                page = page + 1
+                self.getHost()
+            }
+            
             return cell
         }
         
