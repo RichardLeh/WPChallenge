@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     let heigthNoResults:CGFloat = 120.0
     let heigthHostCell:CGFloat = 420.0
     
+    var cachedImages = [String: UIImage]()
+    
     var hosts = [Host]()
     var query:String = ""
     
@@ -32,12 +34,13 @@ class ViewController: UIViewController {
         getHost()
     }
     
-    /*
+    
     override func viewWillAppear(_ animated: Bool) {
         //self.navigationItem.title = query
-        
+        print(hosts)
+        print(cachedImages)
     }
-    */
+    
     
     func getHost(){
         
@@ -52,6 +55,8 @@ class ViewController: UIViewController {
                     
                     if let hostsArr = result["hits"] as? [Dictionary<String, Any>]{
                         weakSelf.hosts.append(contentsOf: weakSelf.getHosts(fromArray: hostsArr))
+                        
+                        weakSelf.cacheImages()
                     }
                     
                     if let nextPage = result["next_page_url"] as? String{
@@ -62,12 +67,11 @@ class ViewController: UIViewController {
                     
                     updatesOnMain {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        
                         weakSelf.tableView.reloadData()
                     }
                     
                 } else{
-                    print(error)
+                    print("something was wrong getting host information \(error)")
                 }
             }
         }
@@ -88,8 +92,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
 // MARK: - ViewController: UITableViewDelegate, UITableViewDataSource
@@ -103,47 +105,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let host = hosts[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! HostListTableViewCell
             
-            cell.titleLabel.text = host.title
-            var cityCountry = ""
-            if let city = host.city{
-                cityCountry += city
-            }
-            if !(cityCountry.isEmpty){
-               cityCountry += ", "
-            }
-            if let country = host.country{
-                cityCountry += country
-            }
-            cell.cityLabel.text = cityCountry
-            
-            if let photoUrl = host.photoUrl{
-                cell.photoImageView.image = nil
-                cell.photoImageView.imageFromServerURL(urlString: photoUrl)
-            }
-            
-            if let hostingSince = host.hostingSince{
-                cell.hostingLabel.text = "Hosting since \(hostingSince.dateStringFormated)"
-            }
-            
-            cell.accomodationLabel.text = host.accommodationTypeSlug?.replacingOccurrences(of: "_", with: " ").capitalized
-            
-            if let meals = host.mealsCount{
-                cell.mealsLabel.text = String(meals)
-            }
-            if let wishList = host.wishListCount{
-                cell.wishLabel.text = String(wishList)
-            }
-            if let trip = host.tripsCount{
-                cell.tripLabel.text = String(trip)
-            }
-            if let price = host.price{
-                cell.priceLabel.text = "US$ " + String(price)
-            }
-            
-            if let rating = host.rating {
-                cell.ratingLabel.text = String(repeating: "★", count: rating) + String(repeating: "☆", count: AppConstants.ratingMax.rawValue - rating)
-            }
-            
+            self.setCellValues(forCell: cell, withHost: host)
             
             if hosts.count - 1 == indexPath.row && nextPage?.isEmpty == false {
                 print("Load more hosts")
@@ -175,5 +137,108 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return (hosts.count > 0) ? heigthHostCell : heigthNoResults
+    }
+    
+    func setCellValues(forCell cell:HostListTableViewCell, withHost host:Host){
+        
+        cell.titleLabel.text = host.title
+        var cityCountry = ""
+        if let city = host.city{
+            cityCountry += city
+        }
+        if !(cityCountry.isEmpty){
+            cityCountry += ", "
+        }
+        if let country = host.country{
+            cityCountry += country
+        }
+        cell.cityLabel.text = cityCountry
+        
+        if let photoUrl = host.photoUrl{
+            cell.photoImageUrl = photoUrl
+            if let image = cachedImages[photoUrl] {
+                cell.photoImageView.image = image
+            }else{
+                cell.photoImageView.image = nil
+                
+                downloadImage(fromStringUrl: photoUrl, completionHandler: { [weak self] image in
+                    if let weakSelf = self{
+                        if let image = image {
+                            weakSelf.cachedImages[photoUrl] = image
+                            if cell.photoImageUrl == photoUrl{
+                                cell.photoImageView.image = image
+                                cell.layoutIfNeeded()
+                                cell.setNeedsLayout()
+                            }
+                        }
+                    }
+                })
+            }
+        }
+        else{
+            cell.photoImageView.image = nil
+        }
+        
+        if let hostingSince = host.hostingSince{
+            cell.hostingLabel.text = "Hosting since \(hostingSince.dateStringFormated)"
+        }
+        
+        cell.accomodationLabel.text = host.accommodationTypeSlug?.replacingOccurrences(of: "_", with: " ").capitalized
+        
+        if let meals = host.mealsCount{
+            cell.mealsLabel.text = String(meals)
+        }
+        if let wishList = host.wishListCount{
+            cell.wishLabel.text = String(wishList)
+        }
+        if let trip = host.tripsCount{
+            cell.tripLabel.text = String(trip)
+        }
+        if let price = host.price{
+            cell.priceLabel.text = "US$ " + String(price)
+        }
+        if let rating = host.rating {
+            cell.ratingLabel.text = String(repeating: "★", count: rating) + String(repeating: "☆", count: AppConstants.ratingMax.rawValue - rating)
+        }
+    }
+}
+
+
+extension ViewController {
+    
+    func cacheImages(){
+        
+        for host in hosts{
+            if let photoUrl = host.photoUrl{
+                if cachedImages[photoUrl] == nil {
+                    downloadImage(fromStringUrl: photoUrl) { [weak self] (image) in
+                        if let image = image {
+                            self?.cachedImages[photoUrl] = image
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func downloadImage(fromStringUrl urlString:String, completionHandler: @escaping (UIImage?) -> Void) {
+        
+        if let urlDownload = URL(string: urlString){
+            URLSession.shared.dataTask(with: urlDownload, completionHandler: { (data, response, error) -> Void in
+                
+                if error != nil {
+                    completionHandler(nil)
+                    return
+                }
+                DispatchQueue.main.async(execute: { () -> Void in
+                    if let data = data{
+                        completionHandler(UIImage(data: data))
+                    }else{
+                        completionHandler(nil)
+                    }
+                })
+                
+            }).resume()
+        }
     }
 }

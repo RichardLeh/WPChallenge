@@ -27,6 +27,7 @@ class HostListTableViewCell: UITableViewCell {
     @IBOutlet weak var tripLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
+    var photoImageUrl: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,7 +49,7 @@ class HostListTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        clear()
+        //clear()
     }
     
     func clear(){

@@ -29,6 +29,7 @@ extension UIImageView {
                 DispatchQueue.main.async(execute: { () -> Void in
                     let image = UIImage(data: data!)
                     self.image = image
+                    self.setNeedsLayout()
                 })
                 
             }).resume()
