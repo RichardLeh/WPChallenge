@@ -2,7 +2,29 @@
 
 import UIKit
 
-let rating = 1
+let rating = 3
 
 let ratingString = String(repeating: "★", count: rating) + String(repeating: "☆", count: 5 - rating)
 print(ratingString)
+
+
+
+extension String {
+    
+    var dateStringFormated: String{
+        get{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date = dateFormatter.date(from: self)
+            
+            dateFormatter.dateFormat = "MMMM yyyy"
+            let dateString = dateFormatter.string(from: date!)
+            
+            return dateString
+        }
+    }
+    
+}
+
+let strDate = "2016-12-12".dateStringFormated
+//print(strDate)

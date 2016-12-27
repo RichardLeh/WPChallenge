@@ -18,17 +18,36 @@ func updatesOnMain(_ updatesToMake: @escaping () -> Void) {
 extension UIImageView {
     public func imageFromServerURL(urlString: String) {
         
-        URLSession.shared.dataTask(with: NSURL(string: urlString)! as URL, completionHandler: { (data, response, error) -> Void in
+        if let urlDownload = URL(string: urlString){
+            URLSession.shared.dataTask(with: urlDownload, completionHandler: { (data, response, error) -> Void in
+                
+                if error != nil {
+                    //print(error)
+                    return
+                }
+                DispatchQueue.main.async(execute: { () -> Void in
+                    let image = UIImage(data: data!)
+                    self.image = image
+                })
+                
+            }).resume()
+        }
+    }
+}
+
+
+extension String {
+    
+    var dateStringFormated: String{
+        get{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date = dateFormatter.date(from: self)
             
-            if error != nil {
-                print(error)
-                return
-            }
-            DispatchQueue.main.async(execute: { () -> Void in
-                let image = UIImage(data: data!)
-                self.image = image
-            })
+            dateFormatter.dateFormat = "MMMM yyyy"
+            let dateString = dateFormatter.string(from: date!)
             
-        }).resume()
+            return dateString
+        }
     }
 }

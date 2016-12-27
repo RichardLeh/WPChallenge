@@ -46,6 +46,10 @@ class Host {
         if let _rating = dictionary[Server.worldPackersJSONResponseKeys.rating] as? Int{
             rating = _rating
         }
+
+        if let _hostingSince = dictionary[Server.worldPackersJSONResponseKeys.hostingSince] as? String{
+            hostingSince = _hostingSince
+        }
         
         if let _accommodationTypeSlug = dictionary[Server.worldPackersJSONResponseKeys.accommodationTypeSlug] as? String{
             accommodationTypeSlug = _accommodationTypeSlug

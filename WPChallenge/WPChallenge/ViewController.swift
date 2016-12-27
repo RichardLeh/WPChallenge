@@ -89,7 +89,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if let photoUrl = host.photoUrl{
             cell.photoImageView.image = nil
             cell.photoImageView.imageFromServerURL(urlString: photoUrl)
-            
+        }
+        
+        if let hostingSince = host.hostingSince{
+            cell.hostingLabel.text = "Hosting since \(hostingSince.dateStringFormated)"
         }
         
         cell.accomodationLabel.text = host.accommodationTypeSlug?.replacingOccurrences(of: "_", with: " ").capitalized

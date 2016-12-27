@@ -13,18 +13,26 @@ class HostListTableViewCell: UITableViewCell {
     @IBOutlet var backgroundColoredViews: [UIView]!
     
     @IBOutlet weak var photoImageView: UIImageView!
+    
     @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    
+    @IBOutlet weak var hostingLabel: UILabel!
+    
     @IBOutlet weak var accomodationLabel: UILabel!
     @IBOutlet weak var mealsLabel: UILabel!
     @IBOutlet weak var wishLabel: UILabel!
     @IBOutlet weak var tripLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var ratingLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        clear()
         
         for view in backgroundColoredViews {
             view.backgroundColor = UIColor.clear
@@ -39,6 +47,22 @@ class HostListTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        clear()
+    }
+    
+    func clear(){
+        
         photoImageView.image = nil
+        
+        titleLabel.text = ""
+        cityLabel.text = ""
+        ratingLabel.text = ""
+        hostingLabel.text = ""
+        accomodationLabel.text = ""
+        mealsLabel.text = ""
+        wishLabel.text = ""
+        tripLabel.text = ""
+        priceLabel.text = ""
     }
 }
