@@ -58,6 +58,10 @@ enum Colors: String{
     case defaultColor = "#158cba"
 }
 
-enum AppConstants:Int{
+enum AppConstants: Int{
     case ratingMax = 5
+}
+
+enum AppSegues: String{
+    case showResult = "showResultSegue"
 }

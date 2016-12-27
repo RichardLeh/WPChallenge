@@ -14,8 +14,7 @@ class ViewController: UIViewController {
     
     let cellIdentifier = "HostCell"
     var hosts = [Host]()
-    
-    //var hosts = [1,2,3,4,5]
+    var query:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +22,14 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        Requests().requestApi(withQuery: "Brazil"){ (result, error) in
+        getHost()
+    }
+    
+    func getHost(){
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        Requests().requestApi(withQuery: query){ (result, error) in
             
             if let result = result as? Dictionary<String,Any>{
                 
@@ -31,10 +37,12 @@ class ViewController: UIViewController {
                     self.hosts = self.getHosts(fromArray: hostsArr)
                 }
                 /*for hostDic in result{
-                    print(hostDic)
-                }*/
+                 print(hostDic)
+                 }*/
                 
                 updatesOnMain {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    
                     self.tableView.reloadData()
                 }
                 
