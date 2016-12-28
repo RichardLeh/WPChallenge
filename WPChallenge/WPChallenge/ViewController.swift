@@ -152,6 +152,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func setCellValues(forCell cell:HostListTableViewCell, withHost host:Host){
         
         cell.titleLabel.text = host.title
+        cell.titleLabel.textColor = UIColor(hexString: Colors.defaultColor.rawValue)
         var cityCountry = ""
         if let city = host.city{
             cityCountry += city
@@ -206,6 +207,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
         if let price = host.price{
             cell.priceLabel.text = "US$ " + String(price)
+            cell.priceLabel.backgroundColor = UIColor(hexString: Colors.defaultColor.rawValue)
         }
         if let rating = host.rating {
             cell.ratingLabel.text = String(repeating: "★", count: rating) + String(repeating: "☆", count: AppConstants.ratingMax.rawValue - rating)

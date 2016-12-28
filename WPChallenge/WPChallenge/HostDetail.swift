@@ -7,17 +7,24 @@
 //
 
 import Foundation
+import CoreLocation
 
 class HostDetail {
     
     var id:Int?
     var title:String?
+    var type:String?
     var city:String?
+    var state:String?
     var country:String?
     var description:String?
     var rating:Int?
+    var reviews:Dictionary<String, Any>?
     var price:Int?
     var photos:[String]?
+    var accommodationType:String?
+    var meals:[String]?
+    var geolocation:CLLocationCoordinate2D?
     
     init(dictionary: [String:Any]) {
         if let _id = dictionary[Server.worldPackersDetailJSONResponseKeys.id] as? Int{
@@ -29,6 +36,9 @@ class HostDetail {
         if let _city = dictionary[Server.worldPackersDetailJSONResponseKeys.city] as? String{
             city = _city
         }
+        if let _state = dictionary[Server.worldPackersDetailJSONResponseKeys.state] as? String{
+            state = _state
+        }
         if let _country = dictionary[Server.worldPackersDetailJSONResponseKeys.country] as? String{
             country = _country
         }
@@ -38,8 +48,11 @@ class HostDetail {
         if let _price = dictionary[Server.worldPackersDetailJSONResponseKeys.price] as? Int{
             price = _price
         }
-        if let _rating = dictionary[Server.worldPackersDetailJSONResponseKeys.rating] as? Int{
-            rating = _rating
+        if let _reviews = dictionary[Server.worldPackersDetailJSONResponseKeys.reviews] as? Dictionary<String, Any>{
+            reviews = _reviews
+            if let _rating = _reviews[Server.worldPackersDetailJSONResponseKeys.rating] as? Int{
+                rating = _rating
+            }
         }
     }
 }

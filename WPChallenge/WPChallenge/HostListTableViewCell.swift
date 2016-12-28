@@ -49,7 +49,7 @@ class HostListTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        //clear()
+        clear()
     }
     
     func clear(){

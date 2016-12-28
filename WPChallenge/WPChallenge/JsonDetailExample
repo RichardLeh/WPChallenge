@@ -1,0 +1,131 @@
+{
+"id": 34,
+"title": "Batman secretary",
+"description": "Help Batman to save Gotham. aadaf adf dfdaf adaf ffff hhhh ffff dffgsfg sfg sfg sfg sf gsf gsfg g fsg s s gfsfg fsg sfgsg ggg  sgf sgflyop  fkgslfgsf sgfls kgfs gsf s sgkflskg skgfsl kgfls",
+"type": "Hostel",
+"city": "São José dos Campos",
+"state": "São Paulo",
+"country": "Brazil",
+"skills": [
+{
+"id": 23,
+"name": "Night Shift",
+"slug": "night_shift",
+"description": "Help with night tasks to make the place relaxing for all guests"
+}
+],
+"hours": {
+"value": 20,
+"period": "week"
+},
+"days_off": 2,
+"minimum_time_to_stay": {
+"value": 2,
+"period": "week"
+},
+"maximum_time_to_stay": {
+"value": 5,
+"period": "week"
+},
+"accommodation_type": "private_dorm",
+"meals": [
+"breakfast",
+"lunch",
+"dinner"
+],
+"laundry": "full_services",
+"additional_benefits": "",
+"host": {
+"name": "Alfred",
+"photo_url": "https://s3.amazonaws.com/worldpackers_staging/users/avatars/000/000/777/medium/alfred.jpg",
+"response_rate": 100,
+"response_time": 2.0896551724137935,
+"description": "bat cave where batman live, do I need to say anything else ?\r\nSave Gotham!\r\nCurabitur vestibulum aliquam leo. Nam commodo suscipit quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit.",
+"tags": [
+{
+"slug": "business",
+"name": "Business"
+},
+{
+"slug": "nature",
+"name": "Nature"
+},
+{
+"slug": "family",
+"name": "Family"
+},
+{
+"slug": "hiking",
+"name": "Hiking"
+},
+{
+"slug": "social_community",
+"name": "Social Community"
+}
+]
+},
+"latitude": -23.223701,
+"longitude": -45.9009074,
+"required_languages": [],
+"price": 5000,
+"photos": [
+"https://s3.amazonaws.com/worldpackers_staging/volunteer_positions/photos/000/000/034/main/cropped-batcave.jpg"
+],
+"reviews": {
+"count": 1,
+"rating": 5,
+"url": "https://staging-worldpackersplatform.herokuapp.com/api/volunteer_positions/34/reviews",
+"collection": [
+{
+"name": "Robb",
+"nationality": "New Zealand",
+"created_at": "2016-05-25",
+"content": "I had a great time at Bat Cave. Alfred was annoying, but besides that, I enjoyed everything.",
+"photo_url": "https://s3.amazonaws.com/worldpackers_staging/users/avatars/000/000/732/medium/6440d80459691666a102437881c68b55.jpg",
+"reply": {
+"name": "Alfred",
+"created_at": "2016-05-25",
+"content": "See you at the Red Wedding, Robb!",
+"photo_url": "https://s3.amazonaws.com/worldpackers_staging/users/avatars/000/000/777/medium/alfred.jpg"
+}
+}
+]
+},
+"confirmed_travelers": {
+"count": 9,
+"users": [
+{
+"id": 888,
+"avatar_url": "https://s3.amazonaws.com/worldpackers_staging/users/avatars/000/000/888/medium/399201_101190796668623_1625927361_n.jpg",
+"first_name": "Princess",
+"last_name": "Consuela",
+"url": null
+},
+{
+"id": 913,
+"avatar_url": "https://s3.amazonaws.com/worldpackers_staging/users/avatars/000/000/913/medium/bf3c11ba4ecf0e7db1bcee2c31d35c36.jpg",
+"first_name": "Mabel",
+"last_name": "Pines",
+"url": null
+},
+{
+"id": 901,
+"avatar_url": "https://s3.amazonaws.com/worldpackers_staging/users/avatars/000/000/901/medium/d0b3244693f743a542dc6a84b8f5ae22.jpg",
+"first_name": "Bart",
+"last_name": "Simpsons",
+"url": null
+},
+{
+"id": 829,
+"avatar_url": "https://s3.amazonaws.com/worldpackers_staging/users/avatars/000/000/829/medium/Stitch.png",
+"first_name": "Fabiola",
+"last_name": "Werneck",
+"url": null
+}
+]
+},
+"conversation_id": null,
+"record_type": "Position",
+"wish_listed": false,
+"url": "https://staging-worldpackersplatform.herokuapp.com/positions/34"
+}

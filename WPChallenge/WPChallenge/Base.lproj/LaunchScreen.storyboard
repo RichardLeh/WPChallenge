@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="worldpackers-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="hbH-gD-8h7">
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="worldpackers-logo" translatesAutoresizingMaskIntoConstraints="NO" id="hbH-gD-8h7">
                                 <rect key="frame" x="0.0" y="20" width="375" height="607"/>
                             </imageView>
                         </subviews>
@@ -40,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="worldpackers-logo.png" width="171" height="171"/>
+        <image name="worldpackers-logo" width="171" height="171"/>
     </resources>
 </document>

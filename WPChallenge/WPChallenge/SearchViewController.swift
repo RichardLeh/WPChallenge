@@ -10,6 +10,8 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
+    @IBOutlet weak var searchTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "WP Challenge"
@@ -18,6 +20,8 @@ class SearchViewController: UIViewController {
         nav?.tintColor = UIColor.white
         nav?.barTintColor = UIColor.init(hexString: Colors.defaultColor.rawValue)
         nav?.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        
+        searchTextField.textColor = UIColor(hexString: Colors.defaultColor.rawValue)
     }
 
     override func didReceiveMemoryWarning() {

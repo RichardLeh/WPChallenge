@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class DetailViewController: UIViewController {
 
@@ -19,14 +20,27 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     
     var hostId:String?
-    fileprivate var hostDetail:HostDetail?
+    //fileprivate var hostDetail:HostDetail?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = true
-        // Do any additional setup after loading the view.
+        clear()
     }
+    
+    func clear(){
+        
+        for v in photosScrollView.subviews{
+            v.removeFromSuperview()
+        }
+        
+        titleLabel.text = ""
+        typeCityCountryLabel.text = ""
+        ratingLabel.text = ""
+        priceLabel.text = ""
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -42,14 +56,12 @@ class DetailViewController: UIViewController {
                     
                     if let result = result as? Dictionary<String,Any>{
                         
-                        weakSelf.hostDetail = HostDetail(dictionary: result)
+                        let hostDetail = HostDetail(dictionary: result)
                         
                         updatesOnMain {
                             UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             
-                            weakSelf.titleLabel.text = weakSelf.hostDetail?.title
-                            //weakSelf.priceLabel.text = weakSelf.hostDetail?.price
-                            //weakSelf.ratingLabel.text = weakSelf.hostDetail?.ra
+                            weakSelf.fillView(withHostDetail: hostDetail)
                         }
                         
                     } else{
@@ -61,6 +73,38 @@ class DetailViewController: UIViewController {
         }
     }
     
+    func fillView(withHostDetail hostDetail:HostDetail){
+        titleLabel.text = hostDetail.title
+        titleLabel.textColor = UIColor(hexString: Colors.defaultColor.rawValue)
+        
+        var typeCityCountry = ""
+        if let type = hostDetail.type{
+            typeCityCountry += type
+        }
+        if !(typeCityCountry.isEmpty){
+            typeCityCountry += ", "
+        }
+        if let city = hostDetail.city{
+            typeCityCountry += city
+        }
+        if !(typeCityCountry.isEmpty){
+            typeCityCountry += ", "
+        }
+        if let country = hostDetail.country{
+            typeCityCountry += country
+        }
+        typeCityCountryLabel.text = typeCityCountry
+
+        
+        if let rating = hostDetail.rating {
+            ratingLabel.text = String(repeating: "★", count: rating) + String(repeating: "☆", count: AppConstants.ratingMax.rawValue - rating)
+        }
+        
+        if let price = hostDetail.price{
+            priceLabel.text = "US$ " + String(price)
+            priceLabel.backgroundColor = UIColor(hexString: Colors.defaultColor.rawValue)
+        }
+    }
 
     /*
     // MARK: - Navigation

@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		797CE9E51E128FE50057468C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797CE9E41E128FE50057468C /* SearchViewController.swift */; };
+		797CE9E71E13E9070057468C /* JsonDetailExample in Resources */ = {isa = PBXBuildFile; fileRef = 797CE9E61E13E9060057468C /* JsonDetailExample */; };
 		C51502681E133CB6001084E3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51502671E133CB6001084E3 /* DetailViewController.swift */; };
 		C515026A1E134C9D001084E3 /* HostDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51502691E134C9C001084E3 /* HostDetail.swift */; };
 		C5846A581E1004D200F70162 /* 10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5846A571E1004D200F70162 /* 10.jpg */; };
-		C5846A601E120E5300F70162 /* Worldpackers-travel-the-world-1024x564.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5846A5F1E120E5300F70162 /* Worldpackers-travel-the-world-1024x564.jpg */; };
-		C5846A621E120EDD00F70162 /* worldpackers-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C5846A611E120EDD00F70162 /* worldpackers-logo.png */; };
 		C595B3771E0B59B900473E02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595B3761E0B59B900473E02 /* AppDelegate.swift */; };
 		C595B3791E0B59B900473E02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595B3781E0B59B900473E02 /* ViewController.swift */; };
 		C595B37C1E0B59B900473E02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C595B37A1E0B59B900473E02 /* Main.storyboard */; };
@@ -28,12 +27,11 @@
 
 /* Begin PBXFileReference section */
 		797CE9E41E128FE50057468C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		797CE9E61E13E9060057468C /* JsonDetailExample */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JsonDetailExample; sourceTree = "<group>"; };
 		C51502671E133CB6001084E3 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C51502691E134C9C001084E3 /* HostDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostDetail.swift; sourceTree = "<group>"; };
 		C570A0741E0F732100A798A0 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		C5846A571E1004D200F70162 /* 10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.jpg; sourceTree = "<group>"; };
-		C5846A5F1E120E5300F70162 /* Worldpackers-travel-the-world-1024x564.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Worldpackers-travel-the-world-1024x564.jpg"; sourceTree = "<group>"; };
-		C5846A611E120EDD00F70162 /* worldpackers-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "worldpackers-logo.png"; sourceTree = "<group>"; };
 		C595B3731E0B59B900473E02 /* WPChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WPChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C595B3761E0B59B900473E02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C595B3781E0B59B900473E02 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,10 +80,9 @@
 			isa = PBXGroup;
 			children = (
 				C5846A571E1004D200F70162 /* 10.jpg */,
-				C5846A5F1E120E5300F70162 /* Worldpackers-travel-the-world-1024x564.jpg */,
-				C5846A611E120EDD00F70162 /* worldpackers-logo.png */,
 				C595B3821E0B59B900473E02 /* Info.plist */,
 				C595B38E1E0B647200473E02 /* JsonExample */,
+				797CE9E61E13E9060057468C /* JsonDetailExample */,
 				C570A0741E0F732100A798A0 /* Playground.playground */,
 			);
 			name = "Supporting Files";
@@ -202,12 +199,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5846A581E1004D200F70162 /* 10.jpg in Resources */,
-				C5846A601E120E5300F70162 /* Worldpackers-travel-the-world-1024x564.jpg in Resources */,
+				797CE9E71E13E9070057468C /* JsonDetailExample in Resources */,
 				C595B3811E0B59B900473E02 /* LaunchScreen.storyboard in Resources */,
 				C595B38F1E0B647200473E02 /* JsonExample in Resources */,
 				C595B37E1E0B59B900473E02 /* Assets.xcassets in Resources */,
 				C595B37C1E0B59B900473E02 /* Main.storyboard in Resources */,
-				C5846A621E120EDD00F70162 /* worldpackers-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
