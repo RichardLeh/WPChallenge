@@ -35,14 +35,6 @@ class ViewController: UIViewController {
         getHost()
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //self.navigationItem.title = query
-        print(hosts)
-        print(cachedImages)
-    }
-    
-    
     func getHost(){
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
