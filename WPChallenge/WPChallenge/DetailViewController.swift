@@ -49,7 +49,6 @@ class DetailViewController: UIViewController {
                             
                             weakSelf.titleLabel.text = weakSelf.hostDetail?.title
                             //weakSelf.priceLabel.text = weakSelf.hostDetail?.price
-                            
                             //weakSelf.ratingLabel.text = weakSelf.hostDetail?.ra
                         }
                         
