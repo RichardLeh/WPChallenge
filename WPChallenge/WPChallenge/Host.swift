@@ -27,43 +27,43 @@ class Host {
     var hostingSince:String?
     
     init(dictionary: [String:Any]) {
-        if let _id = dictionary[Server.worldPackersJSONResponseKeys.id] as? Int{
+        if let _id = dictionary[Server.worldPackersSearchJSONResponseKeys.id] as? Int{
             id = _id
         }
-        if let _title = dictionary[Server.worldPackersJSONResponseKeys.title] as? String{
+        if let _title = dictionary[Server.worldPackersSearchJSONResponseKeys.title] as? String{
             title = _title
         }
-        if let _city = dictionary[Server.worldPackersJSONResponseKeys.city] as? String{
+        if let _city = dictionary[Server.worldPackersSearchJSONResponseKeys.city] as? String{
             city = _city
         }
-        if let _country = dictionary[Server.worldPackersJSONResponseKeys.country] as? String{
+        if let _country = dictionary[Server.worldPackersSearchJSONResponseKeys.country] as? String{
             country = _country
         }
-        if let _photoUrl = dictionary[Server.worldPackersJSONResponseKeys.photoUrl] as? String{
+        if let _photoUrl = dictionary[Server.worldPackersSearchJSONResponseKeys.photoUrl] as? String{
             photoUrl = _photoUrl
         }
         
-        if let _rating = dictionary[Server.worldPackersJSONResponseKeys.rating] as? Int{
+        if let _rating = dictionary[Server.worldPackersSearchJSONResponseKeys.rating] as? Int{
             rating = _rating
         }
 
-        if let _hostingSince = dictionary[Server.worldPackersJSONResponseKeys.hostingSince] as? String{
+        if let _hostingSince = dictionary[Server.worldPackersSearchJSONResponseKeys.hostingSince] as? String{
             hostingSince = _hostingSince
         }
         
-        if let _accommodationTypeSlug = dictionary[Server.worldPackersJSONResponseKeys.accommodationTypeSlug] as? String{
+        if let _accommodationTypeSlug = dictionary[Server.worldPackersSearchJSONResponseKeys.accommodationTypeSlug] as? String{
             accommodationTypeSlug = _accommodationTypeSlug
         }
-        if let _mealsCount = dictionary[Server.worldPackersJSONResponseKeys.mealsCount] as? Int{
+        if let _mealsCount = dictionary[Server.worldPackersSearchJSONResponseKeys.mealsCount] as? Int{
             mealsCount = _mealsCount
         }
-        if let _wishListCount = dictionary[Server.worldPackersJSONResponseKeys.wishListCount] as? Int{
+        if let _wishListCount = dictionary[Server.worldPackersSearchJSONResponseKeys.wishListCount] as? Int{
             wishListCount = _wishListCount
         }
-        if let _tripsCount = dictionary[Server.worldPackersJSONResponseKeys.tripsCount] as? Int{
+        if let _tripsCount = dictionary[Server.worldPackersSearchJSONResponseKeys.tripsCount] as? Int{
             tripsCount = _tripsCount
         }
-        if let _price = dictionary[Server.worldPackersJSONResponseKeys.price] as? Int{
+        if let _price = dictionary[Server.worldPackersSearchJSONResponseKeys.price] as? Int{
             price = _price
         }
         

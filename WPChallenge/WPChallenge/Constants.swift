@@ -13,17 +13,21 @@ import Foundation
 // MARK: Constants
 struct Server {
     
-    // MARK: API TMDB MOVIE
     struct worldpackersApi {
         static let apiScheme = "https"
         static let apiHost = "staging-worldpackersplatform.herokuapp.com"
         static let apiPath = "/api"
-        static let apiMethod = "/search/"
+        static let apiMethodSearch = "/search/"
+        static let apiMethodDetail = "/volunteer_positions/"
     }
     
-    struct worldpackersApiKeys {
+    struct worldpackersApiKeysSearch {
         static let query = "q"
         static let page = "page"
+    }
+    
+    struct worldpackersApiKeysDetail {
+        static let id = ""
     }
     
     struct worldPackersHeadersKeys {
@@ -35,9 +39,31 @@ struct Server {
         static let authorization = "bearer 9e5a86cfca45eba00668e1baf15fd8dd65c15ad760e00845b81995d242844cdd"
     }
     
-    struct worldPackersJSONResponseKeys {
+    struct worldPackersSearchJSONResponseKeys {
         static let id = "id"
         static let title = "title"
+        static let city = "city"
+        static let country = "country"
+        static let rating = "rating"
+        static let reviewsCount = "reviews_count"
+        static let photoUrl = "photo_url"
+        static let price = "price"
+        static let url = "url"
+        static let accommodationTypeSlug = "accommodation_type_slug"
+        static let mealsCount = "meals_count"
+        static let wishListCount = "wish_list_count"
+        static let tripsCount = "trips_count"
+        static let teaserBadge = "teaser_badge"
+        static let hostingSince = "hosting_since"
+        
+        static let hits = "hits"
+        static let nextPageUrl = "next_page_url"
+    }
+    
+    struct worldPackersDetailJSONResponseKeys {
+        static let id = "id"
+        static let title = "title"
+        static let description = "description"
         static let city = "city"
         static let country = "country"
         static let rating = "rating"
@@ -64,4 +90,5 @@ enum AppConstants: Int{
 
 enum AppSegues: String{
     case showResult = "showResultSegue"
+    case showDetail = "showDetailSegue"
 }

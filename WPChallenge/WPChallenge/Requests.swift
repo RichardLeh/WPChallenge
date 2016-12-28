@@ -10,6 +10,9 @@ import Foundation
 
 // https://staging-worldpackersplatform.herokuapp.com/api/search/?q=BR&page=1
 // https://staging-worldpackersplatform.herokuapp.com/api/search?page=2&per_page=20&q=
+// https://staging-worldpackersplatform.herokuapp.com/api/volunteer_positions/10
+
+typealias CompletionResultError = (_ result: Any?, _ error: NSError?) -> Void
 
 class Requests: NSObject{
     
@@ -25,14 +28,24 @@ class Requests: NSObject{
     override init() {
         super.init()
     }
+    
+    func requestApiDetail(withId id:String, completion: @escaping CompletionResultError){
+        let detailHostURL = hostListURLFromParameters(nil, withMethod: Server.worldpackersApi.apiMethodDetail + id)
         
-    func requestApi(withQuery query:String, withPage page:Int = 1, completion: @escaping (_ result: Any?, _ error: NSError?) -> Void){
+        requestApi(withUrl: detailHostURL, completion: completion)
+    }
+    func requestApiSearch(withQuery query:String, withPage page:Int = 1, completion: @escaping CompletionResultError){
+        let requestParameters = [Server.worldpackersApiKeysSearch.query: query,
+                                 Server.worldpackersApiKeysSearch.page: page] as [String:Any]
         
-        let requestParameters = [Server.worldpackersApiKeys.query: query,
-                                 Server.worldpackersApiKeys.page: page] as [String:Any]
+        let hostsURL = hostListURLFromParameters(requestParameters, withMethod: Server.worldpackersApi.apiMethodSearch)
         
-        let movieURL = movieListURLFromParameters(requestParameters)
-        let request = addHeaders(on: movieURL)
+        requestApi(withUrl: hostsURL, completion: completion)
+    }
+    
+    func requestApi(withUrl url:URL, completion: @escaping CompletionResultError){
+        
+        let request = addHeaders(on: url)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
@@ -62,8 +75,6 @@ class Requests: NSObject{
             
             // parse the data            
             do {
-                //jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
-                
                 let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! Dictionary<String,AnyObject>
                 print(jsonDictionary)
                 completion(jsonDictionary, nil)
@@ -87,19 +98,21 @@ class Requests: NSObject{
         }
     }
     
-    private func movieListURLFromParameters(_ parameters: [String:Any]) -> URL {
+    private func hostListURLFromParameters(_ parameters: [String:Any]?, withMethod method:String) -> URL {
         
         var components = URLComponents()
         components.scheme = Server.worldpackersApi.apiScheme
         components.host = Server.worldpackersApi.apiHost
-        components.path = Server.worldpackersApi.apiPath + Server.worldpackersApi.apiMethod
-        components.queryItems = [URLQueryItem]()
+        components.path = Server.worldpackersApi.apiPath + method
         
-        for (key, value) in parameters {
-            let queryItem = URLQueryItem(name: key, value: "\(value)")
-            components.queryItems!.append(queryItem)
+        if let parameters = parameters{
+            components.queryItems = [URLQueryItem]()
+            
+            for (key, value) in parameters {
+                let queryItem = URLQueryItem(name: key, value: "\(value)")
+                components.queryItems!.append(queryItem)
+            }
         }
-        
         return components.url!
     }
     private func addHeaders(on url:URL) -> URLRequest{

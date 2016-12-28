@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = query
+        self.navigationController?.hidesBarsOnSwipe = true
         getHost()
     }
     
@@ -46,20 +47,20 @@ class ViewController: UIViewController {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        Requests().requestApi(withQuery: query, withPage: page){ [weak self] (result, error) in
+        Requests().requestApiSearch(withQuery: query, withPage: page) { [weak self] (result, error) in
         
             if let weakSelf = self {
                 weakSelf.firstTime = false
                 
                 if let result = result as? Dictionary<String,Any>{
                     
-                    if let hostsArr = result["hits"] as? [Dictionary<String, Any>]{
+                    if let hostsArr = result[Server.worldPackersSearchJSONResponseKeys.hits] as? [Dictionary<String, Any>]{
                         weakSelf.hosts.append(contentsOf: weakSelf.getHosts(fromArray: hostsArr))
                         
                         weakSelf.cacheImages()
                     }
                     
-                    if let nextPage = result["next_page_url"] as? String{
+                    if let nextPage = result[Server.worldPackersSearchJSONResponseKeys.nextPageUrl] as? String{
                         weakSelf.nextPage = nextPage
                     }else{
                         weakSelf.nextPage = nil
@@ -71,7 +72,7 @@ class ViewController: UIViewController {
                     }
                     
                 } else{
-                    print("something was wrong getting host information \(error)")
+                    print("something was wrong getting hosts information \(error)")
                 }
             }
         }
@@ -92,10 +93,21 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: Navigation
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == AppSegues.showDetail.rawValue  {
+            if let viewController = segue.destination as? DetailViewController {
+                if let hostId = sender as? Int{
+                    viewController.hostId = "\(hostId)"
+                }
+            }
+        }
+    }
 }
 
 // MARK: - ViewController: UITableViewDelegate, UITableViewDataSource
-
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -107,8 +119,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             
             self.setCellValues(forCell: cell, withHost: host)
             
-            if hosts.count - 1 == indexPath.row && nextPage?.isEmpty == false {
-                print("Load more hosts")
+            if hosts.count - 1 == indexPath.row + 1 && nextPage?.isEmpty == false {
                 page = page + 1
                 self.getHost()
             }
@@ -129,10 +140,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let host = hosts[indexPath.row]
-        //let controller = storyboard!.instantiateViewController(withIdentifier: "MovieDetailViewController") as! MovieDetailViewController
-        //controller.host = host
-        //navigationController!.pushViewController(controller, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        let host = hosts[indexPath.row]
+        self.performSegue(withIdentifier: AppSegues.showDetail.rawValue, sender: host.id)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -203,7 +213,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-
+// MARK: ViewController Image Cache Controll
 extension ViewController {
     
     func cacheImages(){
@@ -230,13 +240,13 @@ extension ViewController {
                     completionHandler(nil)
                     return
                 }
-                DispatchQueue.main.async(execute: { () -> Void in
+                updatesOnMain {
                     if let data = data{
                         completionHandler(UIImage(data: data))
                     }else{
                         completionHandler(nil)
                     }
-                })
+                }
                 
             }).resume()
         }

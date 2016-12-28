@@ -15,29 +15,6 @@ func updatesOnMain(_ updatesToMake: @escaping () -> Void) {
     }
 }
 
-extension UIImageView {
-    public func imageFromServerURL(urlString: String) {
-        
-        if let urlDownload = URL(string: urlString){
-            URLSession.shared.dataTask(with: urlDownload, completionHandler: { (data, response, error) -> Void in
-                
-                if error != nil {
-                    // show default image
-                    //print(error)
-                    return
-                }
-                DispatchQueue.main.async(execute: { () -> Void in
-                    let image = UIImage(data: data!)
-                    self.image = image
-                    self.setNeedsLayout()
-                })
-                
-            }).resume()
-        }
-    }
-}
-
-
 extension String {
     
     var dateStringFormated: String{
