@@ -73,14 +73,34 @@ struct Server {
         static let photos = "photos"
         static let price = "price"
         static let url = "url"
+        
+        static let hours = "hours"
+        static let daysOff = "days_off"
+        static let minimumTimeToStay = "minimum_time_to_stay"
+        static let maximumTimeToStay = "maximum_time_to_stay"
+        static let requiredLanguages = "required_languages"
+        
+        static let latitude = "latitude"
+        static let longitude = "longitude"
+
+        /*
+        static let url = "url"
+        static let url = "url"
+        static let url = "url"
+        static let url = "url"
+        static let url = "url"
+        
         static let accommodationTypeSlug = "accommodation_type_slug"
         static let mealsCount = "meals_count"
         static let wishListCount = "wish_list_count"
         static let tripsCount = "trips_count"
         static let teaserBadge = "teaser_badge"
         static let hostingSince = "hosting_since"
+        */
     }
 }
+ 
+
 
 enum Colors: String{
     case defaultColor = "#158cba"

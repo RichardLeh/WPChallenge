@@ -50,7 +50,13 @@ extension String {
             return dateString
         }
     }
+    
+    func trim() -> String
+    {
+        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
 }
+
 
 extension UIColor {
     convenience init(hexString: String) {

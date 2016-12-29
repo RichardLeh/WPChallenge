@@ -11,25 +11,89 @@ import CoreLocation
 
 class HostDetail {
     
+    /*
+     @IBOutlet var backgroundColoredViews: [UIView]!
+     
+     @IBOutlet weak var scrollView: UIScrollView!
+     @IBOutlet weak var contentView: UIView!
+     
+     // photos
+     @IBOutlet weak var photosScrollView: UIScrollView!
+     @IBOutlet weak var photosPageControl: UIPageControl!
+     
+     // title
+     @IBOutlet weak var titleLabel: UILabel!
+     @IBOutlet weak var typeCityCountryLabel: UILabel!
+     @IBOutlet weak var ratingLabel: UILabel!
+     @IBOutlet weak var priceLabel: UILabel!
+     
+     // the experience
+     @IBOutlet weak var desciptionLabel: UILabel!
+     
+     // what we ask for
+     @IBOutlet weak var hoursLabel: UILabel!
+     @IBOutlet weak var daysOffLabel: UILabel!
+     @IBOutlet weak var languagesLabel: UILabel!
+     @IBOutlet weak var stayLabel: UILabel!
+     
+     // map
+     @IBOutlet weak var mapView: MKMapView!
+     
+     // the host
+     @IBOutlet weak var hostNameLabel: UILabel!
+     @IBOutlet weak var responseRateLabel: UILabel!
+     @IBOutlet weak var hostDescriptionLabel: UILabel!
+     @IBOutlet weak var responseTimeLabel: UILabel!
+     */
+ 
+ 
     var id:Int?
+    
+    var photos:[String]?
+    
+    // title
     var title:String?
     var type:String?
     var city:String?
     var state:String?
     var country:String?
-    var description:String?
-    var rating:Int?
+    
     var reviews:Dictionary<String, Any>?
+    var rating:Int?
+    
     var price:Int?
-    var photos:[String]?
-    var accommodationType:String?
-    var meals:[String]?
+    
+    // the experience
+    var description:String?
+    
+    // what we ask for
+    var hours:Dictionary<String, Any>?
+    var daysOff:Int?
+    var minimumTimeToStay:Dictionary<String, Any>?
+    var maximumTimeToStay:Dictionary<String, Any>?
+    var requiredLanguages:[Dictionary<String, Any>]?
+    
+    // map
     var geolocation:CLLocationCoordinate2D?
+    
+    // the host
+    var hostName:String?
+    var hostPhotoUrl:String?
+    var hostResponseRate:Float?
+    var hostResponseTime:Float?
+    var hostDescription:String?
     
     init(dictionary: [String:Any]) {
         if let _id = dictionary[Server.worldPackersDetailJSONResponseKeys.id] as? Int{
             id = _id
         }
+        
+        // photos
+        if let _photos = dictionary[Server.worldPackersDetailJSONResponseKeys.photos] as? [String]{
+            photos = _photos
+        }
+        
+        // title
         if let _title = dictionary[Server.worldPackersDetailJSONResponseKeys.title] as? String{
             title = _title
         }
@@ -42,9 +106,6 @@ class HostDetail {
         if let _country = dictionary[Server.worldPackersDetailJSONResponseKeys.country] as? String{
             country = _country
         }
-        if let _description = dictionary[Server.worldPackersDetailJSONResponseKeys.description] as? String{
-            description = _description
-        }
         if let _price = dictionary[Server.worldPackersDetailJSONResponseKeys.price] as? Int{
             price = _price
         }
@@ -54,8 +115,43 @@ class HostDetail {
                 rating = _rating
             }
         }
-        if let _photos = dictionary[Server.worldPackersDetailJSONResponseKeys.photos] as? [String]{
-            photos = _photos
+        
+        // the experience
+        if let _description = dictionary[Server.worldPackersDetailJSONResponseKeys.description] as? String{
+            description = _description
         }
+        
+        // what we ask for
+        if let _hours = dictionary[Server.worldPackersDetailJSONResponseKeys.hours] as? Dictionary<String, Any>{
+            hours = _hours
+        }
+        if let _daysOff = dictionary[Server.worldPackersDetailJSONResponseKeys.daysOff] as? Int?{
+            daysOff = _daysOff
+        }
+        if let _minimumTimeToStay = dictionary[Server.worldPackersDetailJSONResponseKeys.minimumTimeToStay] as? Dictionary<String, Any>{
+            minimumTimeToStay = _minimumTimeToStay
+        }
+        if let _maximumTimeToStay = dictionary[Server.worldPackersDetailJSONResponseKeys.maximumTimeToStay] as? Dictionary<String, Any>{
+            maximumTimeToStay = _maximumTimeToStay
+        }
+        if let _requiredLanguages = dictionary[Server.worldPackersDetailJSONResponseKeys.requiredLanguages] as? [Dictionary<String, Any>]{
+            requiredLanguages = _requiredLanguages
+        }
+        
+        // map
+        //var geolocation:CLLocationCoordinate2D?
+        if  let _latitude  = dictionary[Server.worldPackersDetailJSONResponseKeys.latitude] as? Float,
+            let _longitude = dictionary[Server.worldPackersDetailJSONResponseKeys.longitude] as? Float {
+            geolocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(_latitude), longitude: CLLocationDegrees(_longitude))
+        }
+        
+        /*
+        // the host
+        var hostName:String?
+        var hostPhotoUrl:String?
+        var hostResponseRate:Float?
+        var hostResponseTime:Float?
+        var hostDescription:String?
+        */
     }
 }
