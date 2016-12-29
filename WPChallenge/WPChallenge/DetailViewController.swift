@@ -46,6 +46,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var responseTimeLabel: UILabel!
     
     @IBOutlet weak var lastStack: UIStackView!
+    @IBOutlet weak var viewView: UIView!
     
     var hostId:String?
     //fileprivate var hostDetail:HostDetail?
@@ -60,6 +61,7 @@ class DetailViewController: UIViewController {
         for view in backgroundColoredViews {
             view.backgroundColor = UIColor.clear
         }
+        print(viewView.frame.size)
     }
     
     func clear(){
@@ -208,6 +210,9 @@ class DetailViewController: UIViewController {
         print(self.view.frame.size.height)
         self.view.sizeToFit()
         print(self.view.frame.size.height)
+        
+        print(viewView.frame.size)
+        self.scrollView.contentSize = CGSize(width: 0, height: viewView.frame.size.height)
     }
     
     func getValuePeriodString(from dic:Dictionary<String, Any>) -> String{
