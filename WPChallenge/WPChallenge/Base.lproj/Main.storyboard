@@ -404,12 +404,10 @@
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fBq-bT-om6" userLabel="BorderVIew">
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fBq-bT-om6" userLabel="BorderVIew">
                                                 <rect key="frame" x="15" y="381" width="343" height="1"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="fVf-ag-01u"/>
-                                                </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="The Experience" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV6-bn-EZA">
                                                 <rect key="frame" x="14" y="384" width="343" height="17"/>
@@ -426,12 +424,10 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qli-qG-4Zb" userLabel="BorderVIew">
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qli-qG-4Zb" userLabel="BorderVIew">
                                                 <rect key="frame" x="11" y="463" width="343" height="1"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="Un9-hz-HTR"/>
-                                                </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="What we ask for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jaf-Dr-rbJ">
                                                 <rect key="frame" x="12" y="481" width="343" height="17"/>
@@ -486,31 +482,53 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="The Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3p-np-GmK">
-                                                <rect key="frame" x="7" y="748" width="343" height="17"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="17" id="tq7-eB-9Z7"/>
-                                                </constraints>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hgs-DQ-bJ7">
+                                                <rect key="frame" x="16" y="628" width="343" height="109"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </mapView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="The Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3p-np-GmK">
+                                                <rect key="frame" x="10" y="748" width="343" height="17"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="&lt;host description&gt; asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9p-KU-Xig">
-                                                <rect key="frame" x="9" y="775" width="343" height="70"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="&lt;host description&gt; asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9p-KU-Xig">
+                                                <rect key="frame" x="9" y="874" width="343" height="70"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.86160933380000004" green="0.79488239230000002" blue="0.88669892130000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="32" id="9kb-Wv-Doj"/>
-                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hgs-DQ-bJ7">
-                                                <rect key="frame" x="16" y="628" width="343" height="109"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="128" id="2K2-57-C30"/>
-                                                </constraints>
-                                            </mapView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ofi-QQ-adM">
+                                                <rect key="frame" x="12" y="768" width="100" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="&lt;host name&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC8-Be-3OL">
+                                                <rect key="frame" x="125" y="782" width="179" height="22"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.86160933380000004" green="0.79488239230000002" blue="0.88669892130000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="&lt;response rate&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlQ-iZ-eZX">
+                                                <rect key="frame" x="125" y="808" width="179" height="22"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.86160933380000004" green="0.79488239230000002" blue="0.88669892130000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="&lt;response time&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xT-Ip-s5i">
+                                                <rect key="frame" x="123" y="833" width="179" height="22"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.86160933380000004" green="0.79488239230000002" blue="0.88669892130000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -546,13 +564,21 @@
                     <size key="freeformSize" width="375" height="1200"/>
                     <connections>
                         <outlet property="contentView" destination="83E-Fj-mCM" id="NQm-OT-SPO"/>
+                        <outlet property="daysOffLabel" destination="kht-tr-a2n" id="TaD-fB-E1C"/>
                         <outlet property="desciptionLabel" destination="ebI-nk-kAE" id="MkB-yB-5Lf"/>
+                        <outlet property="hostDescriptionLabel" destination="s9p-KU-Xig" id="fDV-3h-bmE"/>
+                        <outlet property="hostNameLabel" destination="sC8-Be-3OL" id="bH4-7T-cK8"/>
+                        <outlet property="hoursLabel" destination="oE8-Di-b6O" id="GIP-be-QA3"/>
+                        <outlet property="languagesLabel" destination="bma-Hd-I9y" id="run-xJ-TV8"/>
                         <outlet property="mapView" destination="Hgs-DQ-bJ7" id="Jk3-Zr-cDb"/>
                         <outlet property="photosPageControl" destination="0jI-QQ-DOb" id="unH-dR-VAB"/>
                         <outlet property="photosScrollView" destination="XOo-V7-AEo" id="hKg-cy-ojh"/>
                         <outlet property="priceLabel" destination="KPe-0g-Hfx" id="1x6-x0-8db"/>
                         <outlet property="ratingLabel" destination="y4D-mn-n38" id="yk9-ET-y9k"/>
+                        <outlet property="responseRateLabel" destination="GlQ-iZ-eZX" id="Zlb-dA-I3x"/>
+                        <outlet property="responseTimeLabel" destination="3xT-Ip-s5i" id="Uja-0D-hrh"/>
                         <outlet property="scrollView" destination="dzB-sD-MsI" id="RpV-1t-c1H"/>
+                        <outlet property="stayLabel" destination="1Eb-n8-Cwa" id="1OI-0l-jYg"/>
                         <outlet property="titleLabel" destination="16I-2g-9f4" id="e3B-Ua-EXJ"/>
                         <outlet property="typeCityCountryLabel" destination="e8m-ne-9sc" id="VeR-zu-qkK"/>
                         <outletCollection property="backgroundColoredViews" destination="16I-2g-9f4" collectionClass="NSMutableArray" id="crh-Uz-S6T"/>

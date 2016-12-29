@@ -17,17 +17,34 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     
+    // photos
     @IBOutlet weak var photosScrollView: UIScrollView!
     @IBOutlet weak var photosPageControl: UIPageControl!
     
+    // title
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var typeCityCountryLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
+    // the experience
     @IBOutlet weak var desciptionLabel: UILabel!
     
+    // what we ask for
+    @IBOutlet weak var hoursLabel: UILabel!
+    @IBOutlet weak var daysOffLabel: UILabel!
+    @IBOutlet weak var languagesLabel: UILabel!
+    @IBOutlet weak var stayLabel: UILabel!
+    
+    // map
     @IBOutlet weak var mapView: MKMapView!
+    
+    // the host
+    @IBOutlet weak var hostNameLabel: UILabel!
+    @IBOutlet weak var responseRateLabel: UILabel!
+    @IBOutlet weak var hostDescriptionLabel: UILabel!
+    @IBOutlet weak var responseTimeLabel: UILabel!
+    
     
     var hostId:String?
     //fileprivate var hostDetail:HostDetail?
