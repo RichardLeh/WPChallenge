@@ -54,5 +54,8 @@ class HostDetail {
                 rating = _rating
             }
         }
+        if let _photos = dictionary[Server.worldPackersDetailJSONResponseKeys.photos] as? [String]{
+            photos = _photos
+        }
     }
 }

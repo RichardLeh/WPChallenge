@@ -15,6 +15,27 @@ func updatesOnMain(_ updatesToMake: @escaping () -> Void) {
     }
 }
 
+func downloadImage(fromStringUrl urlString:String, completionHandler: @escaping (UIImage?) -> Void) {
+    
+    if let urlDownload = URL(string: urlString){
+        URLSession.shared.dataTask(with: urlDownload, completionHandler: { (data, response, error) -> Void in
+            
+            if error != nil {
+                completionHandler(nil)
+                return
+            }
+            updatesOnMain {
+                if let data = data{
+                    completionHandler(UIImage(data: data))
+                }else{
+                    completionHandler(nil)
+                }
+            }
+            
+        }).resume()
+    }
+}
+
 extension String {
     
     var dateStringFormated: String{

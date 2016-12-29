@@ -11,7 +11,12 @@ import MapKit
 import CoreLocation
 
 class DetailViewController: UIViewController {
+    
+    @IBOutlet var backgroundColoredViews: [UIView]!
 
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    
     @IBOutlet weak var photosScrollView: UIScrollView!
     @IBOutlet weak var photosPageControl: UIPageControl!
     
@@ -20,6 +25,10 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
+    @IBOutlet weak var desciptionLabel: UILabel!
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
     var hostId:String?
     //fileprivate var hostDetail:HostDetail?
     
@@ -27,7 +36,12 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = true
+        
         clear()
+        
+        for view in backgroundColoredViews {
+            view.backgroundColor = UIColor.clear
+        }
     }
     
     func clear(){
@@ -83,7 +97,7 @@ class DetailViewController: UIViewController {
             typeCityCountry += type
         }
         if !(typeCityCountry.isEmpty){
-            typeCityCountry += ", "
+            typeCityCountry += " • "
         }
         if let city = hostDetail.city{
             typeCityCountry += city
@@ -96,25 +110,46 @@ class DetailViewController: UIViewController {
         }
         typeCityCountryLabel.text = typeCityCountry
 
-        
         if let rating = hostDetail.rating {
             ratingLabel.text = String(repeating: "★", count: rating) + String(repeating: "☆", count: AppConstants.ratingMax.rawValue - rating)
         }
         
+        priceLabel.backgroundColor = UIColor(hexString: Colors.defaultColor.rawValue)
         if let price = hostDetail.price{
             priceLabel.text = "US$ " + String(price)
-            priceLabel.backgroundColor = UIColor(hexString: Colors.defaultColor.rawValue)
+            
+        }
+        
+        if let photosUrl = hostDetail.photos{
+            
+            let width = Int(photosScrollView.frame.size.width)
+            let height = Int(photosScrollView.frame.size.height)
+            
+            for i in 0..<photosUrl.count{
+                let uiPhoto = UIImageView()
+                uiPhoto.contentMode = .scaleAspectFill
+                uiPhoto.frame = CGRect(x: i * width, y: 0, width: width, height: height)
+                photosScrollView.addSubview(uiPhoto)
+                downloadImage(fromStringUrl: photosUrl[i], completionHandler: { [weak uiPhoto] image in
+                    //if let weakSelf = self{
+                        if let image = image {
+                            //weakSelf.cachedImages[photoUrl] = image
+                            uiPhoto?.image = image
+                        }
+                    //}
+                })
+            }
+            photosPageControl.numberOfPages = photosUrl.count
+            photosScrollView.contentSize = CGSize(width: width * photosUrl.count, height: 0)
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+extension DetailViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        photosPageControl.currentPage = Int(pageNumber)
+    }
+}
+

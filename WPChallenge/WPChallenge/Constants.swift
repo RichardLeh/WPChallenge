@@ -70,7 +70,7 @@ struct Server {
         static let reviews = "reviews"
         static let rating = "rating"
         static let reviewsCount = "reviews_count"
-        static let photoUrl = "photo_url"
+        static let photos = "photos"
         static let price = "price"
         static let url = "url"
         static let accommodationTypeSlug = "accommodation_type_slug"
