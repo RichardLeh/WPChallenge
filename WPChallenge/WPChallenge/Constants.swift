@@ -83,23 +83,47 @@ struct Server {
         static let latitude = "latitude"
         static let longitude = "longitude"
 
-        /*
-        static let url = "url"
-        static let url = "url"
-        static let url = "url"
-        static let url = "url"
-        static let url = "url"
         
+        static let host = "host"
+        static let hostName = "name"
+        static let hostPhotoUrl = "photo_url"
+        static let hostResponseRate = "response_rate"
+        static let hostResponseTime = "response_time"
+        static let hostDescription = "description"
+        
+        
+        /*
         static let accommodationTypeSlug = "accommodation_type_slug"
         static let mealsCount = "meals_count"
         static let wishListCount = "wish_list_count"
         static let tripsCount = "trips_count"
         static let teaserBadge = "teaser_badge"
         static let hostingSince = "hosting_since"
+         
+         if let host = dictionary[Server.worldPackersDetailJSONResponseKeys.host] as? [Dictionary<String, Any>]{
+         if let _hostName = host[Server.worldPackersDetailJSONResponseKeys.hostName] as? String{
+         hostName = _hostName
+         }
+         if let _hostPhotoUrl = host[Server.worldPackersDetailJSONResponseKeys.hostPhotoUrl] as? String{
+         hostPhotoUrl = _hostPhotoUrl
+         }
+         if let _hostResponseRate = host[Server.worldPackersDetailJSONResponseKeys.hostResponseRate] as? Float{
+         hostResponseRate = _hostResponseRate
+         }
+         if let _responseTime = host[Server.worldPackersDetailJSONResponseKeys.hostPhotoUrl] as? Float{
+         responseTime = _responseTime
+         }
+         if let _hostDescription = host[Server.worldPackersDetailJSONResponseKeys.hostDescription] as? String{
+         hostDescription = _hostDescription
+         }
+         }
+
+         
+         
         */
     }
 }
- 
+
 
 
 enum Colors: String{

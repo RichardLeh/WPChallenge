@@ -76,7 +76,6 @@ class Requests: NSObject{
             // parse the data            
             do {
                 let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! Dictionary<String,AnyObject>
-                print(jsonDictionary)
                 completion(jsonDictionary, nil)
             } catch {
                 print("Could not parse the data as JSON: '\(data)'")

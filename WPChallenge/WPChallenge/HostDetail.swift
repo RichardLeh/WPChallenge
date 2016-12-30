@@ -79,8 +79,8 @@ class HostDetail {
     // the host
     var hostName:String?
     var hostPhotoUrl:String?
-    var hostResponseRate:Float?
-    var hostResponseTime:Float?
+    var hostResponseRate:Double?
+    var hostResponseTime:Double?
     var hostDescription:String?
     
     init(dictionary: [String:Any]) {
@@ -139,19 +139,28 @@ class HostDetail {
         }
         
         // map
-        //var geolocation:CLLocationCoordinate2D?
         if  let _latitude  = dictionary[Server.worldPackersDetailJSONResponseKeys.latitude] as? Float,
             let _longitude = dictionary[Server.worldPackersDetailJSONResponseKeys.longitude] as? Float {
             geolocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(_latitude), longitude: CLLocationDegrees(_longitude))
         }
         
-        /*
         // the host
-        var hostName:String?
-        var hostPhotoUrl:String?
-        var hostResponseRate:Float?
-        var hostResponseTime:Float?
-        var hostDescription:String?
-        */
+        if let host = dictionary[Server.worldPackersDetailJSONResponseKeys.host] as? Dictionary<String, Any>{
+            if let _hostName = host[Server.worldPackersDetailJSONResponseKeys.hostName] as? String{
+                hostName = _hostName
+            }
+            if let _hostPhotoUrl = host[Server.worldPackersDetailJSONResponseKeys.hostPhotoUrl] as? String{
+                hostPhotoUrl = _hostPhotoUrl
+            }
+            if let _hostResponseRate = host[Server.worldPackersDetailJSONResponseKeys.hostResponseRate] as? Double{
+                hostResponseRate = _hostResponseRate
+            }
+            if let _hostResponseTime = host[Server.worldPackersDetailJSONResponseKeys.hostResponseTime] as? Double{
+                hostResponseTime = _hostResponseTime
+            }
+            if let _hostDescription = host[Server.worldPackersDetailJSONResponseKeys.hostDescription] as? String{
+                hostDescription = _hostDescription
+            }
+        }
     }
 }

@@ -41,14 +41,18 @@ class DetailViewController: UIViewController {
     
     // the host
     @IBOutlet weak var hostNameLabel: UILabel!
-    @IBOutlet weak var responseRateLabel: UILabel!
+    @IBOutlet weak var hostResponseRateLabel: UILabel!
+    @IBOutlet weak var hostResponseTimeLabel: UILabel!
     @IBOutlet weak var hostDescriptionLabel: UILabel!
-    @IBOutlet weak var responseTimeLabel: UILabel!
+    @IBOutlet weak var hostPhotoImageView: UIImageView!
     
+    @IBOutlet weak var mapStack: UIStackView!
     @IBOutlet weak var lastStack: UIStackView!
     @IBOutlet weak var viewView: UIView!
     
-    var hostId:String?
+    @IBOutlet weak var mapHeigthLayout: NSLayoutConstraint!
+    
+    var hostId:String? = "23"
     //fileprivate var hostDetail:HostDetail?
     
     override func viewDidLoad() {
@@ -86,10 +90,15 @@ class DetailViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if let hostId = hostId{
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
             Requests().requestApiDetail(withId: hostId){ [weak self] (result, error) in
                 if let weakSelf = self {
                     
                     if let result = result as? Dictionary<String,Any>{
+                        
+                        print(result)
                         
                         let hostDetail = HostDetail(dictionary: result)
                         
@@ -110,9 +119,6 @@ class DetailViewController: UIViewController {
     
     func fillView(withHostDetail hostDetail:HostDetail){
         
-        print(lastStack.frame.origin.y)
-        print(lastStack.frame.size.height)
-        
         // photos
         if let photosUrl = hostDetail.photos{
             
@@ -125,12 +131,9 @@ class DetailViewController: UIViewController {
                 uiPhoto.frame = CGRect(x: i * width, y: 0, width: width, height: height)
                 photosScrollView.addSubview(uiPhoto)
                 downloadImage(fromStringUrl: photosUrl[i], completionHandler: { [weak uiPhoto] image in
-                    //if let weakSelf = self{
                     if let image = image {
-                        //weakSelf.cachedImages[photoUrl] = image
                         uiPhoto?.image = image
                     }
-                    //}
                 })
             }
             photosPageControl.numberOfPages = photosUrl.count
@@ -139,8 +142,6 @@ class DetailViewController: UIViewController {
 
         // title
         titleLabel.text = hostDetail.title
-        titleLabel.textColor = UIColor(hexString: Colors.defaultColor.rawValue)
-        
         var typeCityCountry = ""
         if let type = hostDetail.type{
             typeCityCountry += type
@@ -175,20 +176,36 @@ class DetailViewController: UIViewController {
         // what we ask for
         
         if let hours = hostDetail.hours{
-            hoursLabel.text = getValuePeriodString(from: hours)
+            if let tupleHours = getValuePeriodString(from: hours){
+                if tupleHours.0 == 1{
+                    hoursLabel.text = String(tupleHours.0) + " hour/" + tupleHours.1
+                }
+                else{
+                    hoursLabel.text = String(tupleHours.0) + " hours/" + tupleHours.1
+                }
+            }
         }
         if let daysOff = hostDetail.daysOff{
-            daysOffLabel.text = String(daysOff)
+            if daysOff == 1{
+                daysOffLabel.text = String(daysOff) + " day off"
+            }
+            else{
+                daysOffLabel.text = String(daysOff) + " days off"
+            }
         }
         var timeToStay = ""
         if let minimum = hostDetail.minimumTimeToStay{
-            timeToStay = "At least " + getValuePeriodString(from: minimum)
+            if let atLeast = getValuePeriodString(from: minimum){
+                timeToStay = "At least \(atLeast.0) \(atLeast.1)"
+            }
         }
         if let maximum = hostDetail.maximumTimeToStay{
             if !timeToStay.isEmpty{
                 timeToStay = timeToStay + "\r\n"
             }
-            timeToStay = timeToStay + "Up to " + getValuePeriodString(from: maximum)
+            if let upTo = getValuePeriodString(from: maximum){
+                timeToStay = "Up to \(upTo.0) \(upTo.1)"
+            }
         }
         stayLabel.text = timeToStay
         if let requiredLanguages = hostDetail.requiredLanguages{
@@ -203,26 +220,48 @@ class DetailViewController: UIViewController {
             mapView.addAnnotation(annotation)
             mapView.setRegion(region, animated: false)
         }
+        else{
+            mapHeigthLayout.isActive = false
+            //mapView.heightAnchor.constraint(equalToConstant: 1)
+        }
         
-        print(lastStack.frame.origin.y)
-        print(lastStack.frame.size.height)
+        //host
+        if let hostName = hostDetail.hostName{
+            hostNameLabel.text = hostName
+        }
+        if let hostResponseRate = hostDetail.hostResponseRate{
+            hostResponseRateLabel.text = String(Int(hostResponseRate)) + "%"
+        }
+        if let hostResponseTime = hostDetail.hostResponseTime{
+            let date = Date(timeIntervalSince1970: hostResponseTime)
+            hostResponseTimeLabel.text = "\(date)"
+        }
+        if let hostDescription = hostDetail.hostDescription{
+            hostDescriptionLabel.text = hostDescription
+        }
+        if let hostPhotoUrl = hostDetail.hostPhotoUrl{
+            downloadImage(fromStringUrl: hostPhotoUrl, completionHandler: { [weak hostPhotoImageView] image in
+                if let image = image {
+                    hostPhotoImageView?.image = image
+                }
+            })
+        }
         
-        print(self.view.frame.size.height)
-        self.view.sizeToFit()
-        print(self.view.frame.size.height)
+        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateSizeScroll), userInfo: nil, repeats: false);
         
-        print(viewView.frame.size)
-        self.scrollView.contentSize = CGSize(width: 0, height: viewView.frame.size.height)
     }
-    
-    func getValuePeriodString(from dic:Dictionary<String, Any>) -> String{
+    func updateSizeScroll(){
+        self.scrollView.contentSize = CGSize(width: 0, height: viewView.frame.size.height)
+        
+    }
+    func getValuePeriodString(from dic:Dictionary<String, Any>) -> (Int, String)?{
         if  let value = dic["value"] as? Int,
             let period = dic["period"] as? String {
             
-            return String(value) + " " + period
+            return (value, period)
         }
         
-        return ""
+        return nil
     }
     
     func getLanguageProeficiency(from arrDic:[Dictionary<String, Any>]) -> String{
@@ -255,8 +294,11 @@ class DetailViewController: UIViewController {
 extension DetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        photosPageControl.currentPage = Int(pageNumber)
+        if scrollView == self.photosScrollView{
+            let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+            photosPageControl.currentPage = Int(pageNumber)
+        }
+        print(viewView.frame.size)
     }
 }
 
