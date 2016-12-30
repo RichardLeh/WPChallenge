@@ -13,6 +13,7 @@ import CoreLocation
 class DetailViewController: UIViewController {
     
     @IBOutlet var backgroundColoredViews: [UIView]!
+    @IBOutlet var emptyUILabels: [UILabel]!
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -73,11 +74,9 @@ class DetailViewController: UIViewController {
         for v in photosScrollView.subviews{
             v.removeFromSuperview()
         }
-        
-        titleLabel.text = ""
-        typeCityCountryLabel.text = ""
-        ratingLabel.text = ""
-        priceLabel.text = ""
+        for label in emptyUILabels{
+            label.text = ""
+        }
     }
 
 
@@ -274,11 +273,31 @@ extension DetailViewController{
                 hostNameLabel.text = hostName
             }
             if let hostResponseRate = hostDetail.hostResponseRate{
-                hostResponseRateLabel.text = String(Int(hostResponseRate)) + "%"
+                hostResponseRateLabel.text = "Responde rate: " + String(Int(hostResponseRate)) + "%"
             }
             if let hostResponseTime = hostDetail.hostResponseTime{
-                let date = Date(timeIntervalSince1970: hostResponseTime)
-                hostResponseTimeLabel.text = "\(date)"
+                
+                func daysBetween(start: Date, end: Date) -> Int {
+                    let cal = Calendar.current.dateComponents([.day, .hour, .minute], from: start, to: end)
+                    return cal.day!
+                }
+                
+                let startDate = Date(timeIntervalSince1970: 0)
+                let endDate = Date(timeIntervalSince1970: hostResponseTime)
+                
+                let days = daysBetween(start: startDate, end: endDate)
+                
+                var responseTime = ""
+                switch days {
+                case 0:
+                    responseTime = " less than a day"
+                case 1:
+                    responseTime = " 1 day"
+                default:
+                    responseTime = " \(days) days"
+                }
+                
+                hostResponseTimeLabel.text = "Responde time:" + responseTime
             }
             if let hostDescription = hostDetail.hostDescription{
                 hostDescriptionLabel.text = hostDescription

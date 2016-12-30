@@ -28,3 +28,18 @@ extension String {
 
 let strDate = "2016-12-12".dateStringFormated
 //print(strDate)
+
+let days = 2
+
+var responseTime = ""
+
+switch days {
+case 0:
+    responseTime = " less than a day"
+case 1:
+    responseTime = " 1 day"
+default:
+    responseTime = " \(days) days"
+}
+
+print(responseTime)
