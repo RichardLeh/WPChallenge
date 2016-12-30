@@ -117,143 +117,6 @@ class DetailViewController: UIViewController {
         }
     }
     
-    func fillView(withHostDetail hostDetail:HostDetail){
-        
-        // photos
-        if let photosUrl = hostDetail.photos{
-            
-            let width = Int(photosScrollView.frame.size.width)
-            let height = Int(photosScrollView.frame.size.height)
-            
-            for i in 0..<photosUrl.count{
-                let uiPhoto = UIImageView()
-                uiPhoto.contentMode = .scaleAspectFill
-                uiPhoto.frame = CGRect(x: i * width, y: 0, width: width, height: height)
-                photosScrollView.addSubview(uiPhoto)
-                downloadImage(fromStringUrl: photosUrl[i], completionHandler: { [weak uiPhoto] image in
-                    if let image = image {
-                        uiPhoto?.image = image
-                    }
-                })
-            }
-            photosPageControl.numberOfPages = photosUrl.count
-            photosScrollView.contentSize = CGSize(width: width * photosUrl.count, height: 0)
-        }
-
-        // title
-        titleLabel.text = hostDetail.title
-        var typeCityCountry = ""
-        if let type = hostDetail.type{
-            typeCityCountry += type
-        }
-        if !(typeCityCountry.isEmpty){
-            typeCityCountry += " • "
-        }
-        if let city = hostDetail.city{
-            typeCityCountry += city
-        }
-        if !(typeCityCountry.isEmpty){
-            typeCityCountry += ", "
-        }
-        if let country = hostDetail.country{
-            typeCityCountry += country
-        }
-        typeCityCountryLabel.text = typeCityCountry
-
-        if let rating = hostDetail.rating {
-            ratingLabel.text = String(repeating: "★", count: rating) + String(repeating: "☆", count: AppConstants.ratingMax.rawValue - rating)
-        }
-        
-        priceLabel.backgroundColor = UIColor(hexString: Colors.defaultColor.rawValue)
-        if let price = hostDetail.price{
-            priceLabel.text = "US$ " + String(price)
-            
-        }
-        
-        // the experience
-        desciptionLabel.text = hostDetail.description
-        
-        // what we ask for
-        
-        if let hours = hostDetail.hours{
-            if let tupleHours = getValuePeriodString(from: hours){
-                if tupleHours.0 == 1{
-                    hoursLabel.text = String(tupleHours.0) + " hour/" + tupleHours.1
-                }
-                else{
-                    hoursLabel.text = String(tupleHours.0) + " hours/" + tupleHours.1
-                }
-            }
-        }
-        if let daysOff = hostDetail.daysOff{
-            if daysOff == 1{
-                daysOffLabel.text = String(daysOff) + " day off"
-            }
-            else{
-                daysOffLabel.text = String(daysOff) + " days off"
-            }
-        }
-        var timeToStay = ""
-        if let minimum = hostDetail.minimumTimeToStay{
-            if let atLeast = getValuePeriodString(from: minimum){
-                timeToStay = "At least \(atLeast.0) \(atLeast.1)"
-            }
-        }
-        if let maximum = hostDetail.maximumTimeToStay{
-            if !timeToStay.isEmpty{
-                timeToStay = timeToStay + "\r\n"
-            }
-            if let upTo = getValuePeriodString(from: maximum){
-                timeToStay = "Up to \(upTo.0) \(upTo.1)"
-            }
-        }
-        stayLabel.text = timeToStay
-        if let requiredLanguages = hostDetail.requiredLanguages{
-            languagesLabel.text = getLanguageProeficiency(from: requiredLanguages)
-        }
-        
-        if let geolocation = hostDetail.geolocation{
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = geolocation
-            let span = MKCoordinateSpanMake(0.075, 0.075)
-            let region = MKCoordinateRegion(center: geolocation, span: span)
-            mapView.addAnnotation(annotation)
-            mapView.setRegion(region, animated: false)
-        }
-        else{
-            mapHeigthLayout.isActive = false
-            //mapView.heightAnchor.constraint(equalToConstant: 1)
-        }
-        
-        //host
-        if let hostName = hostDetail.hostName{
-            hostNameLabel.text = hostName
-        }
-        if let hostResponseRate = hostDetail.hostResponseRate{
-            hostResponseRateLabel.text = String(Int(hostResponseRate)) + "%"
-        }
-        if let hostResponseTime = hostDetail.hostResponseTime{
-            let date = Date(timeIntervalSince1970: hostResponseTime)
-            hostResponseTimeLabel.text = "\(date)"
-        }
-        if let hostDescription = hostDetail.hostDescription{
-            hostDescriptionLabel.text = hostDescription
-        }
-        if let hostPhotoUrl = hostDetail.hostPhotoUrl{
-            downloadImage(fromStringUrl: hostPhotoUrl, completionHandler: { [weak hostPhotoImageView] image in
-                if let image = image {
-                    hostPhotoImageView?.image = image
-                }
-            })
-        }
-        
-        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateSizeScroll), userInfo: nil, repeats: false);
-        
-    }
-    func updateSizeScroll(){
-        self.scrollView.contentSize = CGSize(width: 0, height: viewView.frame.size.height)
-        
-    }
     func getValuePeriodString(from dic:Dictionary<String, Any>) -> (Int, String)?{
         if  let value = dic["value"] as? Int,
             let period = dic["period"] as? String {
@@ -288,6 +151,159 @@ class DetailViewController: UIViewController {
         }
         
         return languagesString
+    }
+}
+
+
+// Fill Content
+extension DetailViewController{
+    
+    func fillView(withHostDetail hostDetail:HostDetail){
+        
+        func fillPhotos(){
+            if let photosUrl = hostDetail.photos{
+                
+                let width = Int(photosScrollView.frame.size.width)
+                let height = Int(photosScrollView.frame.size.height)
+                
+                for i in 0..<photosUrl.count{
+                    let uiPhoto = UIImageView()
+                    uiPhoto.contentMode = .scaleAspectFill
+                    uiPhoto.frame = CGRect(x: i * width, y: 0, width: width, height: height)
+                    photosScrollView.addSubview(uiPhoto)
+                    downloadImage(fromStringUrl: photosUrl[i], completionHandler: { [weak uiPhoto] image in
+                        if let image = image {
+                            uiPhoto?.image = image
+                        }
+                    })
+                }
+                photosPageControl.numberOfPages = photosUrl.count
+                photosScrollView.contentSize = CGSize(width: width * photosUrl.count, height: 0)
+            }
+        }
+        func fillTitleAndExperience(){
+            titleLabel.text = hostDetail.title
+            var typeCityCountry = ""
+            if let type = hostDetail.type{
+                typeCityCountry += type
+            }
+            if !(typeCityCountry.isEmpty){
+                typeCityCountry += " • "
+            }
+            if let city = hostDetail.city{
+                typeCityCountry += city
+            }
+            if !(typeCityCountry.isEmpty){
+                typeCityCountry += ", "
+            }
+            if let country = hostDetail.country{
+                typeCityCountry += country
+            }
+            typeCityCountryLabel.text = typeCityCountry
+            
+            if let rating = hostDetail.rating {
+                ratingLabel.text = String(repeating: "★", count: rating) + String(repeating: "☆", count: AppConstants.ratingMax.rawValue - rating)
+            }
+            
+            priceLabel.backgroundColor = UIColor(hexString: Colors.defaultColor.rawValue)
+            if let price = hostDetail.price{
+                priceLabel.text = "US$ " + String(price)
+                
+            }
+            
+            // the experience
+            desciptionLabel.text = hostDetail.description
+        }
+        func fillWhatWeAskFor(){
+            // what we ask for
+            
+            if let hours = hostDetail.hours{
+                if let tupleHours = getValuePeriodString(from: hours){
+                    if tupleHours.0 == 1{
+                        hoursLabel.text = String(tupleHours.0) + " hour/" + tupleHours.1
+                    }
+                    else{
+                        hoursLabel.text = String(tupleHours.0) + " hours/" + tupleHours.1
+                    }
+                }
+            }
+            if let daysOff = hostDetail.daysOff{
+                if daysOff == 1{
+                    daysOffLabel.text = String(daysOff) + " day off"
+                }
+                else{
+                    daysOffLabel.text = String(daysOff) + " days off"
+                }
+            }
+            var timeToStay = ""
+            if let minimum = hostDetail.minimumTimeToStay{
+                if let atLeast = getValuePeriodString(from: minimum){
+                    timeToStay = "At least \(atLeast.0) \(atLeast.1)"
+                }
+            }
+            if let maximum = hostDetail.maximumTimeToStay{
+                if !timeToStay.isEmpty{
+                    timeToStay = timeToStay + "\r\n"
+                }
+                if let upTo = getValuePeriodString(from: maximum){
+                    timeToStay = "Up to \(upTo.0) \(upTo.1)"
+                }
+            }
+            stayLabel.text = timeToStay
+            if let requiredLanguages = hostDetail.requiredLanguages{
+                languagesLabel.text = getLanguageProeficiency(from: requiredLanguages)
+            }
+            
+        }
+        func fillMap(){
+            if let geolocation = hostDetail.geolocation{
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = geolocation
+                let span = MKCoordinateSpanMake(0.075, 0.075)
+                let region = MKCoordinateRegion(center: geolocation, span: span)
+                mapView.addAnnotation(annotation)
+                mapView.setRegion(region, animated: false)
+            }
+            else{
+                mapHeigthLayout.isActive = false
+                //mapView.heightAnchor.constraint(equalToConstant: 1)
+            }
+        }
+        func fillHost(){
+            if let hostName = hostDetail.hostName{
+                hostNameLabel.text = hostName
+            }
+            if let hostResponseRate = hostDetail.hostResponseRate{
+                hostResponseRateLabel.text = String(Int(hostResponseRate)) + "%"
+            }
+            if let hostResponseTime = hostDetail.hostResponseTime{
+                let date = Date(timeIntervalSince1970: hostResponseTime)
+                hostResponseTimeLabel.text = "\(date)"
+            }
+            if let hostDescription = hostDetail.hostDescription{
+                hostDescriptionLabel.text = hostDescription
+            }
+            if let hostPhotoUrl = hostDetail.hostPhotoUrl{
+                downloadImage(fromStringUrl: hostPhotoUrl, completionHandler: { [weak hostPhotoImageView] image in
+                    if let image = image {
+                        hostPhotoImageView?.image = image
+                    }
+                })
+            }
+        }
+        
+        fillPhotos()
+        fillTitleAndExperience()
+        fillWhatWeAskFor()
+        fillMap()
+        fillHost()
+        
+        // update scroll content
+        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateSizeScroll), userInfo: nil, repeats: false);
+    }
+    func updateSizeScroll(){
+        self.scrollView.contentSize = CGSize(width: 0, height: viewView.frame.size.height)
+        
     }
 }
 
