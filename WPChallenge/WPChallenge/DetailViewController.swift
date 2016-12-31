@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import SVProgressHUD
 
 class DetailViewController: UIViewController {
     
@@ -34,8 +35,12 @@ class DetailViewController: UIViewController {
     // what we ask for
     @IBOutlet weak var hoursLabel: UILabel!
     @IBOutlet weak var daysOffLabel: UILabel!
+    
     @IBOutlet weak var languagesLabel: UILabel!
+    @IBOutlet weak var languagesTitleLabel: UILabel!
+    
     @IBOutlet weak var stayLabel: UILabel!
+    @IBOutlet weak var stayTitleLabel: UILabel!
     
     // map
     @IBOutlet weak var mapView: MKMapView!
@@ -47,30 +52,28 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var hostDescriptionLabel: UILabel!
     @IBOutlet weak var hostPhotoImageView: UIImageView!
     
-    @IBOutlet weak var mapStack: UIStackView!
     @IBOutlet weak var lastStack: UIStackView!
     @IBOutlet weak var viewView: UIView!
     
-    @IBOutlet weak var mapHeigthLayout: NSLayoutConstraint!
-    
     var hostId:String? = "23"
     //fileprivate var hostDetail:HostDetail?
+    @IBOutlet weak var coverView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = false
         
         clear()
         
-        for view in backgroundColoredViews {
-            view.backgroundColor = UIColor.clear
-        }
-        print(viewView.frame.size)
+        SVProgressHUD.setBackgroundColor(UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1))
+        SVProgressHUD.setForegroundColor(UIColor(hexString: Colors.defaultColor.rawValue))
     }
     
     func clear(){
-        
+        for view in backgroundColoredViews {
+            view.backgroundColor = UIColor.clear
+        }
         for v in photosScrollView.subviews{
             v.removeFromSuperview()
         }
@@ -91,6 +94,7 @@ class DetailViewController: UIViewController {
         if let hostId = hostId{
             
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            SVProgressHUD.show()
             
             Requests().requestApiDetail(withId: hostId){ [weak self] (result, error) in
                 if let weakSelf = self {
@@ -103,6 +107,7 @@ class DetailViewController: UIViewController {
                         
                         updatesOnMain {
                             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            SVProgressHUD.dismiss()
                             
                             weakSelf.fillView(withHostDetail: hostDetail)
                         }
@@ -160,25 +165,27 @@ extension DetailViewController{
     func fillView(withHostDetail hostDetail:HostDetail){
         
         func fillPhotos(){
-            if let photosUrl = hostDetail.photos{
-                
-                let width = Int(photosScrollView.frame.size.width)
-                let height = Int(photosScrollView.frame.size.height)
-                
-                for i in 0..<photosUrl.count{
-                    let uiPhoto = UIImageView()
-                    uiPhoto.contentMode = .scaleAspectFill
-                    uiPhoto.frame = CGRect(x: i * width, y: 0, width: width, height: height)
-                    photosScrollView.addSubview(uiPhoto)
-                    downloadImage(fromStringUrl: photosUrl[i], completionHandler: { [weak uiPhoto] image in
-                        if let image = image {
-                            uiPhoto?.image = image
-                        }
-                    })
-                }
-                photosPageControl.numberOfPages = photosUrl.count
-                photosScrollView.contentSize = CGSize(width: width * photosUrl.count, height: 0)
+            guard let photosUrl = hostDetail.photos else {
+                photosPageControl.numberOfPages = 0
+                return
             }
+            
+            let width = Int(photosScrollView.frame.size.width)
+            let height = Int(photosScrollView.frame.size.height)
+            
+            for i in 0..<photosUrl.count{
+                let uiPhoto = UIImageView()
+                uiPhoto.contentMode = .scaleAspectFill
+                uiPhoto.frame = CGRect(x: i * width, y: 0, width: width, height: height)
+                photosScrollView.addSubview(uiPhoto)
+                downloadImage(fromStringUrl: photosUrl[i], completionHandler: { [weak uiPhoto] image in
+                    if let image = image {
+                        uiPhoto?.image = image
+                    }
+                })
+            }
+            photosPageControl.numberOfPages = photosUrl.count
+            photosScrollView.contentSize = CGSize(width: width * photosUrl.count, height: 0)
         }
         func fillTitleAndExperience(){
             titleLabel.text = hostDetail.title
@@ -249,10 +256,15 @@ extension DetailViewController{
                 }
             }
             stayLabel.text = timeToStay
+            if stayLabel.text?.isEmpty == true{
+                stayTitleLabel.text = ""
+            }
             if let requiredLanguages = hostDetail.requiredLanguages{
                 languagesLabel.text = getLanguageProeficiency(from: requiredLanguages)
             }
-            
+            if languagesLabel.text?.isEmpty == true{
+                languagesTitleLabel.text = ""
+            }
         }
         func fillMap(){
             if let geolocation = hostDetail.geolocation{
@@ -264,8 +276,7 @@ extension DetailViewController{
                 mapView.setRegion(region, animated: false)
             }
             else{
-                mapHeigthLayout.isActive = false
-                //mapView.heightAnchor.constraint(equalToConstant: 1)
+                mapView.removeFromSuperview()
             }
         }
         func fillHost(){
@@ -323,6 +334,10 @@ extension DetailViewController{
     func updateSizeScroll(){
         self.scrollView.contentSize = CGSize(width: 0, height: viewView.frame.size.height)
         
+        coverView.isHidden = true
+        if scrollView.contentSize.height <= self.view.frame.size.height{
+            self.navigationController?.hidesBarsOnSwipe = false
+        }
     }
 }
 

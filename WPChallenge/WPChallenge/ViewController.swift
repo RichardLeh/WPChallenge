@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ViewController: UIViewController {
 
@@ -32,12 +33,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = query
         self.navigationController?.hidesBarsOnSwipe = true
+        
         getHost()
+        
+        SVProgressHUD.setBackgroundColor(UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1))
+        SVProgressHUD.setForegroundColor(UIColor(hexString: Colors.defaultColor.rawValue))
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.hidesBarsOnSwipe = true
+    }
+    
     
     func getHost(){
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        SVProgressHUD.show()
         
         Requests().requestApiSearch(withQuery: query, withPage: page) { [weak self] (result, error) in
         
@@ -60,6 +72,7 @@ class ViewController: UIViewController {
                     
                     updatesOnMain {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        SVProgressHUD.dismiss()
                         weakSelf.tableView.reloadData()
                     }
                     
@@ -108,6 +121,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
             let host = hosts[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! HostListTableViewCell
+            cell.selectionStyle = .none
             
             self.setCellValues(forCell: cell, withHost: host)
             

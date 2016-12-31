@@ -48,7 +48,7 @@ class Requests: NSObject{
         let request = addHeaders(on: url)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
+            /*
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
@@ -66,22 +66,23 @@ class Requests: NSObject{
                 sendError("Your request returned a status code other than 2xx!")
                 return
             }
-            
+            */
             /* GUARD: Was there any data returned? */
             guard let data = data else {
-                sendError("No data was returned by the request!")
+                //sendError("No data was returned by the request!")
                 return
             }
-            
-            // parse the data            
+ 
+            // parse the data
+            var jsonDictionary:Dictionary<String, Any>
             do {
-                let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! Dictionary<String,AnyObject>
-                completion(jsonDictionary, nil)
+                jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! Dictionary<String, Any>
             } catch {
                 print("Could not parse the data as JSON: '\(data)'")
-                sendError("Could not parse the data as JSON: '\(data)'")
+                //sendError("Could not parse the data as JSON: '\(data)'")
                 return
             }
+            completion(jsonDictionary, nil)
         }
         
         task.resume()

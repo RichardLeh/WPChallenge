@@ -24,6 +24,12 @@ class SearchViewController: UIViewController {
         searchTextField.textColor = UIColor(hexString: Colors.defaultColor.rawValue)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.hidesBarsOnSwipe = false
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

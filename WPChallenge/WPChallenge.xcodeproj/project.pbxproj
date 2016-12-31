@@ -11,7 +11,6 @@
 		797CE9E71E13E9070057468C /* JsonDetailExample in Resources */ = {isa = PBXBuildFile; fileRef = 797CE9E61E13E9060057468C /* JsonDetailExample */; };
 		C51502681E133CB6001084E3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51502671E133CB6001084E3 /* DetailViewController.swift */; };
 		C515026A1E134C9D001084E3 /* HostDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51502691E134C9C001084E3 /* HostDetail.swift */; };
-		C5846A581E1004D200F70162 /* 10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5846A571E1004D200F70162 /* 10.jpg */; };
 		C595B3771E0B59B900473E02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595B3761E0B59B900473E02 /* AppDelegate.swift */; };
 		C595B3791E0B59B900473E02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595B3781E0B59B900473E02 /* ViewController.swift */; };
 		C595B37C1E0B59B900473E02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C595B37A1E0B59B900473E02 /* Main.storyboard */; };
@@ -23,15 +22,17 @@
 		C595B38F1E0B647200473E02 /* JsonExample in Resources */ = {isa = PBXBuildFile; fileRef = C595B38E1E0B647200473E02 /* JsonExample */; };
 		C595B3911E0B660800473E02 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595B3901E0B660800473E02 /* Host.swift */; };
 		C5AF19A81E0CBDB400ADA2D8 /* HostListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AF19A71E0CBDB400ADA2D8 /* HostListTableViewCell.swift */; };
+		DBDAA5A13516146375D2A5CE /* Pods_WPChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EE8B04B84EF4A3F6FAD8E23 /* Pods_WPChallenge.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1EE8B04B84EF4A3F6FAD8E23 /* Pods_WPChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WPChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		797CE9E41E128FE50057468C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		797CE9E61E13E9060057468C /* JsonDetailExample */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JsonDetailExample; sourceTree = "<group>"; };
+		ACA444F802FD8D9593458D69 /* Pods-WPChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WPChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-WPChallenge/Pods-WPChallenge.release.xcconfig"; sourceTree = "<group>"; };
 		C51502671E133CB6001084E3 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C51502691E134C9C001084E3 /* HostDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostDetail.swift; sourceTree = "<group>"; };
 		C570A0741E0F732100A798A0 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
-		C5846A571E1004D200F70162 /* 10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.jpg; sourceTree = "<group>"; };
 		C595B3731E0B59B900473E02 /* WPChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WPChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C595B3761E0B59B900473E02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C595B3781E0B59B900473E02 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +46,7 @@
 		C595B38E1E0B647200473E02 /* JsonExample */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JsonExample; sourceTree = "<group>"; };
 		C595B3901E0B660800473E02 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		C5AF19A71E0CBDB400ADA2D8 /* HostListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListTableViewCell.swift; sourceTree = "<group>"; };
+		CD9D42DF31D9A5DDD20AE75D /* Pods-WPChallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WPChallenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WPChallenge/Pods-WPChallenge.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,12 +54,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBDAA5A13516146375D2A5CE /* Pods_WPChallenge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07186A9B3E25BA17FDEEDA5C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CD9D42DF31D9A5DDD20AE75D /* Pods-WPChallenge.debug.xcconfig */,
+				ACA444F802FD8D9593458D69 /* Pods-WPChallenge.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B97258C981169E26D65C9023 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1EE8B04B84EF4A3F6FAD8E23 /* Pods_WPChallenge.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C5846A591E1206AB00F70162 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,7 +99,6 @@
 		C5846A5C1E12071600F70162 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C5846A571E1004D200F70162 /* 10.jpg */,
 				C595B3821E0B59B900473E02 /* Info.plist */,
 				C595B38E1E0B647200473E02 /* JsonExample */,
 				797CE9E61E13E9060057468C /* JsonDetailExample */,
@@ -112,6 +131,8 @@
 			children = (
 				C595B3751E0B59B900473E02 /* WPChallenge */,
 				C595B3741E0B59B900473E02 /* Products */,
+				07186A9B3E25BA17FDEEDA5C /* Pods */,
+				B97258C981169E26D65C9023 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,9 +167,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C595B3851E0B59B900473E02 /* Build configuration list for PBXNativeTarget "WPChallenge" */;
 			buildPhases = (
+				4A2C9FB42A942E9A0DB99C77 /* [CP] Check Pods Manifest.lock */,
 				C595B36F1E0B59B800473E02 /* Sources */,
 				C595B3701E0B59B800473E02 /* Frameworks */,
 				C595B3711E0B59B800473E02 /* Resources */,
+				61C55F4F14FECAFD50DF4E4F /* [CP] Embed Pods Frameworks */,
+				BC23042530149614E80DE88E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -198,7 +222,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5846A581E1004D200F70162 /* 10.jpg in Resources */,
 				797CE9E71E13E9070057468C /* JsonDetailExample in Resources */,
 				C595B3811E0B59B900473E02 /* LaunchScreen.storyboard in Resources */,
 				C595B38F1E0B647200473E02 /* JsonExample in Resources */,
@@ -208,6 +231,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4A2C9FB42A942E9A0DB99C77 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		61C55F4F14FECAFD50DF4E4F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WPChallenge/Pods-WPChallenge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC23042530149614E80DE88E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WPChallenge/Pods-WPChallenge-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C595B36F1E0B59B800473E02 /* Sources */ = {
@@ -344,6 +415,7 @@
 		};
 		C595B3861E0B59B900473E02 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD9D42DF31D9A5DDD20AE75D /* Pods-WPChallenge.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WPChallenge/Info.plist;
@@ -356,6 +428,7 @@
 		};
 		C595B3871E0B59B900473E02 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ACA444F802FD8D9593458D69 /* Pods-WPChallenge.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WPChallenge/Info.plist;

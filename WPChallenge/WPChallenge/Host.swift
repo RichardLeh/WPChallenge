@@ -66,30 +66,5 @@ class Host {
         if let _price = dictionary[Server.worldPackersSearchJSONResponseKeys.price] as? Int{
             price = _price
         }
-        
-    }
-    
-    init(with id:Int, title: String, city: String, country:String, rating:String?, reviewsCount:Int, photoUrl:String, price:Int, url:String, accommodationTypeSlug:String, mealsCount:Int, wishListCount:Int, teaserBadge:String, hostingSince:String) {
-        
     }
 }
-
-/*
-{
-    "id": 10,
-    "title": "YOho",
-    "city": "São Paulo",
-    "country": "Brazil",
-    "rating": null,
-    "reviews_count": 0,
-    "photo_url": "https://s3.amazonaws.com/worldpackers_staging/volunteer_positions/photos/000/000/010/main/10.jpg",
-    "price": 8000,
-    "url": "https://staging-worldpackersplatform.herokuapp.com/api/volunteer_positions/10",
-    "accommodation_type_slug": "shared_dorm",
-    "meals_count": 1,
-    "wish_list_count": 1,
-    "trips_count": 5,
-    "teaser_badge": "",
-    "hosting_since": "2014-12-04"
-}
-*/
