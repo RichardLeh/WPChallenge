@@ -27,6 +27,8 @@ class Host {
     var hostingSince:String?
     
     init(dictionary: [String:Any]) {
+        self.init()
+        
         if let _id = dictionary[Server.worldPackersSearchJSONResponseKeys.id] as? Int{
             id = _id
         }

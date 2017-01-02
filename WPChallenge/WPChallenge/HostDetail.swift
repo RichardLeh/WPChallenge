@@ -48,6 +48,8 @@ class HostDetail {
     var hostDescription:String?
     
     init(dictionary: [String:Any]) {
+        self.init()
+        
         if let _id = dictionary[Server.worldPackersDetailJSONResponseKeys.id] as? Int{
             id = _id
         }

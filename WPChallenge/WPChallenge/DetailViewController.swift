@@ -56,7 +56,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var viewView: UIView!
     
     var hostId:String? = "23"
-    //fileprivate var hostDetail:HostDetail?
     @IBOutlet weak var coverView: UIView!
     
     override func viewDidLoad() {
@@ -100,8 +99,6 @@ class DetailViewController: UIViewController {
                 if let weakSelf = self {
                     
                     if let result = result as? Dictionary<String,Any>{
-                        
-                        print(result)
                         
                         let hostDetail = HostDetail(dictionary: result)
                         
@@ -348,7 +345,6 @@ extension DetailViewController: UIScrollViewDelegate {
             let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
             photosPageControl.currentPage = Int(pageNumber)
         }
-        print(viewView.frame.size)
     }
 }
 
